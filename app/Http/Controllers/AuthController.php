@@ -96,7 +96,7 @@ class AuthController extends Controller
             if ($user->role == 'employer') {
                 return redirect()->route('payment');
             } elseif ($user->role == 'admin') {
-                return redirect()->route('userList');
+                return redirect()->route('index');
             } else {
                 // $intendedUrl = session()->pull('url.intended', '/');
                 // return redirect()->to($intendedUrl);

@@ -27,9 +27,16 @@ class ApplicationController extends Controller
             'address' => "required",
             'phone' => "required|numeric",
             'salary' => "required|numeric",
+            'gender' => "required",
+            'image' => "required|image|mimes:png,jep,jpeg",
             'job_id' => "required",
             'employee_id' => "required",
         ]);
+
+        $image = $request->image;
+        $imageName = uniqid() . '_' . $image->getClientOriginalName();
+        $image->storeAs('public/form-images', $imageName);
+
         $app = Application::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -38,6 +45,9 @@ class ApplicationController extends Controller
             'salary' => $request->salary,
             'job_id' => $request->job_id,
             'employee_id' => $request->employee_id,
+            'gender' => $request->gender,
+            'image' => $imageName,
+
         ]);
         return redirect('/');
     }

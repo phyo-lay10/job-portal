@@ -86,6 +86,9 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
     // News
     Route::resource('news', NewsController::class);
 
+    // Reports
+    Route::get('reports', [DashboardController::class, 'report']);
+
     // Show Hide comment
     Route::post('comment/{id}/show_hide', [NewsController::class, 'showHideComment']);
     // Delete comment

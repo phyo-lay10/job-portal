@@ -7,7 +7,7 @@
                 <ul class="list-group list-group-flush p-3">
                     <li class="list-group-item bg-transparent"><b>Name :</b>&nbsp; {{$user->name}}</li>
                     <div class="my-3 text-center">
-                        <img src="{{asset('/storage/voucher-images/'.$payment->voucher_image)}}" alt="" style="width: 300px; object-fit:cover;">
+                        <img src="{{asset('/storage/voucher-images/'.$payment->voucher_image)}}" class="rounded" style="width: 300px; height:300px; object-fit:cover;">
                     </div>
                 </ul>
             </div>

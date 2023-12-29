@@ -43,7 +43,6 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
             <!-- Nav Item - Dashboard -->
             @if (Auth::user()->role == 'admin')
                 <li class="nav-item active">
@@ -57,6 +56,7 @@
                     <i class="fas fa-fw fa-folder"></i>
                     <span>User</span></a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin/categories')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -101,6 +101,32 @@
                 </li>
             @endif
 
+            @if (Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('admin/reports')}}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Report</span></a>
+            </li>
+            @endif
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            {{-- @if (Auth::user()->role == 'admin')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Reports</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="{{ url('admin/reports', ['month' => 'this']) }}">This Month</a>
+                            <a class="collapse-item" href="{{ url('admin/reports', ['month' => 'last']) }}">Last Month</a>
+                        </div>
+                    </div>
+                </li>
+            @endif --}}
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

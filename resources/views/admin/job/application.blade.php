@@ -29,6 +29,8 @@
           <th>Phone</th>
           <th>Address</th>
           <th>Salary</th>
+          <th>Gender</th>
+          <th>Image</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -41,6 +43,10 @@
             <td>{{$app->phone}}</td>
             <td>{{$app->address}}</td>
             <td>$ {{$app->salary}}</td>
+            <td>{{$app->gender}}</td>
+            <td>
+              <img src="{{asset('storage/form-images/'. $app->image)}}" class="rounded-circle" style="width:80px; height:80px; object-fit:cover">
+            </td>
             <td>
                 <form method="post"> @csrf
                   <input type="hidden" name="employerId" class="form-control " value="{{Auth::user()->id}}">

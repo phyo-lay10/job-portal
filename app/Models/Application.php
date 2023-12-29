@@ -15,4 +15,8 @@ class Application extends Model
     {
         return $this->belongsTo(Job::class);
     }
+    public function employee()
+    {
+        return $this->belongsTo(User::class, 'employee_id');
+    }
 }

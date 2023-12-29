@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->string('address');
             $table->integer('phone');
             $table->decimal('salary');
+            $table->string('gender')->default('male');
+            $table->string('image')->nullable();
             $table->tinyInteger('accept')->nullable();
             $table->timestamps();
         });

@@ -6,7 +6,7 @@
                 <h3 class="my-5">Application Form</h3>
                 <div class="mt-3 card card-body bg-body-tertiary border-info">
                     <h5 class="mb-4 text-center"><b>{{$job->title}}</b></h5>
-                        <form action="{{url('apply/store')}}" method="POST"> @csrf
+                        <form action="{{url('apply/store')}}" method="POST" enctype="multipart/form-data"> @csrf
                             <div class="mb-3">
                                 <label for="fullName" class="mb-1"><b>Full Name:</b></label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="fullName" value="{{Auth::user()->name}}" >
@@ -46,10 +46,44 @@
                                     <span class="invalid-feedback">{{$message}}</span>
                                 @enderror
                             </div>
+
+                            <div class="mb-3">
+                                <label for="" class="mb-1"><b>Gender</b></label>
+                                <div class="d-flex justify-content-start gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                        <label class="form-check-label" for="male">
+                                          male
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                        <label class="form-check-label" for="female">
+                                          female
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="other" value="other">
+                                        <label class="form-check-label" for="other">
+                                          other
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="mb-2"><b>Image</b></label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid  @enderror ">
+                                @error('image')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+
                             <input type="hidden" value="{{$job->id}}" name="job_id">
                             <input type="hidden" value="{{Auth::user()->id}}" name="employee_id">
                             <input type="hidden"  name="accept">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
                 </div>
             </div>
