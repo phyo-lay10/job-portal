@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-footer bg-transparent border-0 clearfix">
                         <p class="float-start text-success fw-bold ">$ {{$job->salary}}</p>
-                        <a href="{{route('apply', $job->id)}}" class="btn btn-sm btn-info float-end">Apply</a>
+                        <a href="{{route('apply', $job->id)}}" class="btn text-white btn-sm btn-info fw-bold float-end">Apply</a>
                     </div>
                 </div>
                 @endforeach  

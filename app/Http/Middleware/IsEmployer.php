@@ -14,11 +14,13 @@ class IsEmployer
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role == "employer" || Auth::user()->role == "admin") {
+        if (Auth::check() && (Auth::user()->role == "employer" || Auth::user()->role == "admin")) {
             return $next($request);
         }
         return redirect("/");
     }
+
 }

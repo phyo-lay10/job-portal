@@ -44,7 +44,6 @@ class AuthController extends Controller
         return redirect()->route("loginForm")->with("success", "You have successfully registered!");
     }
 
-
     public function registerUpdate(Request $request, $id)
     {
         $request->validate([
@@ -85,6 +84,11 @@ class AuthController extends Controller
 
     public function loginStore(Request $request)
     {
+
+        $previousURL = url()->previous();
+
+        session()->put("intendentURL", $previousURL);
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -93,20 +97,17 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if ($user->role == 'employer') {
+            if ($user->role === 'employer') {
                 return redirect()->route('payment');
-            } elseif ($user->role == 'admin') {
+            } elseif ($user->role === 'admin') {
                 return redirect()->route('index');
             } else {
-                // $intendedUrl = session()->pull('url.intended', '/');
-                // return redirect()->to($intendedUrl);
                 return redirect()->intended('/');
             }
         }
 
-        return back()->with("error", "Email & password do not match our records !");
+        return back()->with("error", "Email & password do not match our records!");
     }
-
 
 
     public function logout(Request $request)

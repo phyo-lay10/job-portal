@@ -38,14 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Register
-Route::get('register', [AuthController::class, 'register'])->name('registerForm');
-Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
-Route::post('register/{id}/update', [AuthController::class, 'registerUpdate'])->name('registerUpdate')->middleware('auth');
+Route::group(['middleware' => 'guest'], function () {
+    // Register
+    Route::get('register', [AuthController::class, 'register'])->name('registerForm');
+    Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
+    Route::post('register/{id}/update', [AuthController::class, 'registerUpdate'])->name('registerUpdate');
 
-// Login
-Route::get('login', [AuthController::class, 'login'])->name('loginForm');
-Route::post('login', [AuthController::class, 'loginStore'])->name('login.store');
+    // Login
+    Route::get('login', [AuthController::class, 'login'])->name('loginForm');
+    Route::post('login', [AuthController::class, 'loginStore'])->name('login.store');
+});
 
 // Admin
 Route::prefix('admin')->middleware('isEmployer')->group(function () {
