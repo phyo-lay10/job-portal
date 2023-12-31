@@ -32,7 +32,7 @@
                 </div>
                 <div class="my-2">
                     <button class="btn btn-sm btn-primary mb-3 shadow">Submit</button>
-                    <div>You have no accpunt yet? <a href="{{route('registerForm')}}"><b>Register here</b></a></div>
+                    <div>You have no account yet? <a href="{{route('registerForm')}}"><b>Register here</b></a></div>
                 </div>
             </div>
         </form>

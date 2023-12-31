@@ -42,12 +42,15 @@ Route::group(['middleware' => 'guest'], function () {
     // Register
     Route::get('register', [AuthController::class, 'register'])->name('registerForm');
     Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
-    Route::post('register/{id}/update', [AuthController::class, 'registerUpdate'])->name('registerUpdate');
 
     // Login
     Route::get('login', [AuthController::class, 'login'])->name('loginForm');
     Route::post('login', [AuthController::class, 'loginStore'])->name('login.store');
 });
+
+// Register Update 
+Route::post('register/{id}/update', [AuthController::class, 'registerUpdate'])->name('registerUpdate');
+
 
 // Admin
 Route::prefix('admin')->middleware('isEmployer')->group(function () {

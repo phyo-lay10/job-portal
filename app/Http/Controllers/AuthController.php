@@ -49,8 +49,9 @@ class AuthController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:png,jpg,jpeg',
         ]);
+        $user = User::findOrFail($id);
 
-        $user = auth()->user();
+        // $user = auth()->user();
 
         if ($user->image) {
             Storage::delete('public/images/' . $user->image);
@@ -85,9 +86,9 @@ class AuthController extends Controller
     public function loginStore(Request $request)
     {
 
-        $previousURL = url()->previous();
+        // $previousURL = url()->previous();
 
-        session()->put("intendentURL", $previousURL);
+        // session()->put("intendentURL", $previousURL);
 
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -116,13 +117,16 @@ class AuthController extends Controller
         return redirect()->route('loginForm');
     }
 
+    // AuthController.php
     private function validateRequest(Request $request)
     {
         return $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg',
         ]);
     }
+
 
 }
