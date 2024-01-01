@@ -40,13 +40,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => 'guest'], function () {
-    // Register
-    Route::get('register', [AuthController::class, 'register'])->name('registerForm');
-    Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
-
     // Login
     Route::get('login', [AuthController::class, 'login'])->name('loginForm');
     Route::post('login', [AuthController::class, 'loginStore'])->name('login.store');
+
+    // Register
+    Route::get('register', [AuthController::class, 'register'])->name('registerForm');
+    Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
 });
 
 // Register Update 

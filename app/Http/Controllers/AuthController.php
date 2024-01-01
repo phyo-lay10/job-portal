@@ -15,18 +15,6 @@ class AuthController extends Controller
         return view("auth.register");
     }
 
-    // public function registerStore(Request $request)
-    // {
-    //     $this->validateRequest($request);
-    //     User::create([
-    //         "name" => $request->name,
-    //         "email" => $request->email,
-    //         // "password" => $request->password,
-    //         "password" => bcrypt($request->password),
-    //     ]);
-    //     return redirect()->route("loginForm")->with("success", "You have successfully registered!");
-    // }
-
     public function registerStore(Request $request)
     {
         $this->validateRequest($request);
@@ -124,7 +112,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'image' => 'required|image|mimes:png,jpg,jpeg',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
         ]);
     }
 
