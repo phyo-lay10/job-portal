@@ -49,7 +49,7 @@
 
                             <div class="mb-3">
                                 <label for="" class="mb-1"><b>Gender</b></label>
-                                <div class="d-flex justify-content-start gap-3">
+                                <div class="d-flex justify-content-start gap-3 border py-1 px-2 rounded">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="gender" id="male" value="male">
                                         <label class="form-check-label" for="male">
