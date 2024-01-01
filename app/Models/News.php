@@ -18,6 +18,10 @@ class News extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'news_id');
+        return $this->hasMany(Comment::class);
+    }
+    public function replies()
+    {
+        return $this->hasManyThrough(Reply::class, Comment::class);
     }
 }

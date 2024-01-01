@@ -2,22 +2,27 @@
 @section('content')
 
 <div class="overflow-hidden">
-
-    {{-- <div class="container">
-        <h4 class="mt-4 mb-5 text-center">Latest News</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <form class="d-flex mb-4" method="get" action="{{route('searchNews')}}">@csrf
-                    <input class="form-control me-2" name="search"  placeholder="Search ..." aria-label="Search">
-                    <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </div> --}}
     <div class="container">
         <h4 class="mt-4 mb-5 text-center">Latest News</h4>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-4 order-md-2 mb-5">
+                <form class="d-flex mb-4 w-75" method="get" action="{{route('searchNews')}}">@csrf
+                    <input class="form-control me-2" name="search"  placeholder="Search ..." aria-label="Search">
+                    <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+                </form>
+                    <h6 class="fw-bold ms-4 mb-3">Category</h6>
+                    <ul style="list-style: none">
+                        <li class="mb-2">
+                            <a href="{{ route('newsSearchById') }}" class="fw-bold">All</a>
+                        </li>
+                        @foreach ($newsCategories as $newsCategory)
+                        <li class="mb-2">
+                            <a href="{{route('newsSearchById', $newsCategory->id)}}" class="fw-bold">{{$newsCategory->name}}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+            </div>
+            <div class="col-md-7 order-md-1">
                 @if ($news->isEmpty())
                 <p class="mt-3 fw-bold">No news available for this category.</p>
                 @else
@@ -40,24 +45,6 @@
                 </div>
                 @endforeach
                 @endif
-            </div>
-
-            <div class="col-md-4">
-                <form class="d-flex mb-4 w-75" method="get" action="{{route('searchNews')}}">@csrf
-                    <input class="form-control me-2" name="search"  placeholder="Search ..." aria-label="Search">
-                    <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
-                </form>
-                    <h6 class="fw-bold ms-4 mb-3">Category</h6>
-                    <ul style="list-style: none">
-                        <li class="mb-2">
-                            <a href="{{ route('newsSearchById') }}" class="fw-bold">All</a>
-                        </li>
-                        @foreach ($newsCategories as $newsCategory)
-                        <li class="mb-2">
-                            <a href="{{route('newsSearchById', $newsCategory->id)}}" class="fw-bold">{{$newsCategory->name}}</a>
-                        </li>
-                        @endforeach
-                    </ul>
             </div>
         </div>
     </div>

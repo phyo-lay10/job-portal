@@ -24,6 +24,7 @@ Route::get('search_news', [UiController::class, 'searchNews'])->name('searchNews
 Route::get('news_search_by_id/{id?}', [UiController::class, 'newsSearchById'])->name('newsSearchById');
 // News comment
 Route::post('news/comment/{newsId}', [CommentController::class, 'comment'])->name('comment')->middleware('auth');
+Route::post('news/reply/{newsId}', [CommentController::class, 'reply'])->name('reply')->middleware('auth');
 
 // Search 
 Route::get('search_job', [UiController::class, 'search'])->name('search');

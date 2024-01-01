@@ -67,10 +67,18 @@ class DashboardController extends Controller
         //     ->orderBy('comments_count', 'desc')
         //     ->first();
         // dd($mostCommentedNews);
+        // $popularNews = News::withCount('comments')
+        //     ->having('comments_count', '>=', 3)
+        //     ->get();
+
         $applicants = Application::where('accept', null)->with('employee')->get();
         $applicants = Application::all();
         $workers = Application::where('accept', 1)->get();
-        $popularNews = News::has('comments', '>=', 3)->get();
+
+        $popularNewsByComment = News::has('comments', '>=', 3)->get();
+        $popularNewsByReply = News::has('replies')->get();
+        $popularNews = $popularNewsByComment->merge($popularNewsByReply);
+
         return view('admin.report.index', compact('applicants', 'workers', 'popularNews'));
     }
 
@@ -92,6 +100,4 @@ class DashboardController extends Controller
 
     //     return view('admin.report.index', compact('applicants', 'workers', 'popularNews'));
     // }
-
-
 }

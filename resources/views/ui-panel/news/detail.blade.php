@@ -28,7 +28,24 @@
                         @else
                             onclick="location.href='{{ route('loginForm') }}';"
                         @endauth>
-                   <b>View Comment ~ <span>{{$comments->count()}}</span></b>
+                   <b>View Comment ~ 
+                    @php
+                          $visibleComments = $comments->filter(function ($comment) {
+                              return $comment->status == 'show';
+                          });
+
+                          $visibleCommentCount = $visibleComments->count();
+                          $visibleRepliesCount = $replies->whereIn('comment_id', $visibleComments->pluck('id'))->count();
+                    @endphp
+
+                      <span>
+                          @if ($visibleCommentCount > 0)
+                              {{$visibleCommentCount + $visibleRepliesCount}}
+                          @else
+                              {{$comments->count()}}
+                          @endif
+                      </span>
+                   </b>
                 </button>
               </div>            
           </div>
@@ -37,21 +54,76 @@
           <div class="collapse w-50 mb-5" id="collapseExample">
             <form action="{{route('comment',$new->id)}}" method="POST">@csrf
               <div class="mb-2 rounded shadow">
-                <textarea name="text" class="form-control rounded" rows="3" placeholder="Leave your comment here"></textarea>
+                <textarea name="text" class="form-control rounded" required rows="3" placeholder="Leave your comment here"></textarea>
               </div>
               <button class="btn btn-sm btn-primary float-end shadow">Submit</button>
             </form>
             @foreach($comments as $comment)
             <div class="border rounded mb-3 mt-5 shadow d-flex flex-column px-2 pb-2 pt-3">
-              <p style="color: blueviolet" class="fw-bold">Name : {{$comment->user->name}}</p>
+              <div>
+                <p style="color: blueviolet" class="fw-bold">Name : {{$comment->user->name}}</p>
               <p class="ms-3">{{ $comment->text }}</p>
-              <p class="text-end text-success">{{ $comment->created_at->diffForHumans() }}</p>
+              <div class="d-flex justify-content-between">
+                <div><a href="javascript::void(0)" class="btn btn-sm btn-outline-primary" data-CommentId="{{$comment->id}}" onclick="reply(this)">Reply</a></div>
+                <p class="text-end text-success">{{ $comment->created_at->diffForHumans() }}</p>
+              </div>
+              </div>
+
+              <div>
+                @foreach ($replies as $reply)
+                @if ($reply->comment_id === $comment->id) 
+                  <div class="mb-2 mt-1 p-2 rounded border">
+                      <p class="m-1"><b>{{$reply->user->name}}</b></p>
+                      <p class="m-1">{{$reply->reply}}</p>
+                      <div class="d-flex justify-content-between m-1">
+                        <a href="javascript::void(0)" class="text-primary" data-CommentId="{{$comment->id}}" onclick="reply(this)">Reply</a>
+                        <p class="text-success">{{ $reply->created_at->diffForHumans() }}</p>
+                      </div>
+                  </div>   
+                @endif 
+               @endforeach
+              </div>
             </div>
             @endforeach
           </div>
         </div>
+        <div class="text-center mt-4 replyDiv" style="display: none;">
+          <form action="{{route('reply',$new->id)}}" method="POST"> @csrf
+             <div class="text-start">
+                <input type="hidden" id="commentId" name="commentId">
+                <textarea name="reply" rows="3" class="form-control mb-2" placeholder="Reply here" required></textarea>
+                <div class="d-flex justify-content-start">
+                   <button class="btn btn-sm btn-primary" style="margin-right: 10px">Reply</button>
+                   <button onclick="replyClose(this)" class="btn btn-sm btn-secondary">Close</button>
+                </div>
+             </div>
+          </form>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
+<script>
+  function reply(caller) {
+     document.getElementById('commentId').value = $(caller).attr('data-CommentId');
+     $('.replyDiv').insertAfter($(caller));
+     $('.replyDiv').show();
+  }
+
+  function replyClose(caller) {
+     $('.replyDiv').hide();
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      if (scrollpos) window.scrollTo(0, scrollpos);
+  });
+
+  window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+  };
+</script>
 @endsection
