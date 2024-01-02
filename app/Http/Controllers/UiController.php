@@ -6,12 +6,14 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Job;
+use App\Models\LikeDislike;
 use App\Models\Message;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\Reply;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -67,7 +69,12 @@ class UiController extends Controller
         $new = News::find($id);
         $comments = Comment::where('news_id', $id)->where('status', 'show')->latest()->get();
         $replies = Reply::where('news_id', $id)->latest()->get();
-        return view('ui-panel.news.detail', compact('new', 'comments', 'replies'));
+
+        $likes = LikeDislike::where('news_id', $id)->where('type', 'like')->get();
+        $dislikes = LikeDislike::where('news_id', $id)->where('type', 'dislike')->get();
+        $likeStatus = LikeDislike::where('news_id', $id)->where('user_id', Auth::user()->id)->first();
+
+        return view('ui-panel.news.detail', compact('new', 'comments', 'replies', 'likes', 'dislikes', 'likeStatus'));
     }
 
     public function searchNews(Request $request)

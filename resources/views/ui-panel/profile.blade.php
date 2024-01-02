@@ -45,7 +45,7 @@
                     </div>
                     <form action="{{route('registerUpdate', Auth::user()->id)}}" method="POST" enctype="multipart/form-data"> @csrf
                         <div class="modal-body">
-                            <input type="file" name="image" class="form-control">
+                            <input type="file" name="image" required class="form-control">
                         </div>
                         <div class="modal-footer">     
                             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>

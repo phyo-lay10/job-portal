@@ -19,8 +19,25 @@
               <p class="card-text">{{$new->description}}</p>
           </div>
           <div class="card-footer border-0 bg-transparent">
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="text-success fw-bold">{{ $new->created_at->diffForHumans() }}</p>
+              <div class="d-flex mb-2 justify-content-between align-items-center align-items-center">
+                <div>
+                  <form method="POST"> @csrf
+                    <div>  
+                      <button formaction="{{route('like', $new->id)}}" class="btn btn-sm mb-2 btn-success like 
+                          @if($likeStatus) 
+                              @if($likeStatus->type == 'like') disabled  @endif
+                          @endif">
+                          <i class="far fa-thumbs-up"></i> Like <span class="ms-1 badge bg-dark">{{count($likes)}}</span>
+                      </button>
+                      <button formaction="{{route('dislike', $new->id)}}" class="btn btn-sm btn-danger mb-2  dislike
+                          @if($likeStatus)
+                              @if($likeStatus->type == 'dislike') disabled @endif
+                          @endif">
+                          <i class="far fa-thumbs-down"></i> Dislike <span class="ms-1 badge bg-dark">{{count($dislikes)}}</span>
+                      </button>  
+                    </div>
+                  </form>
+                </div>
                 <button class="btn btn-success btn-sm mb-3" type="button" 
                         @auth
                             data-bs-toggle="collapse" data-bs-target="#collapseExample" 
@@ -33,11 +50,11 @@
                           $visibleComments = $comments->filter(function ($comment) {
                               return $comment->status == 'show';
                           });
-
+  
                           $visibleCommentCount = $visibleComments->count();
                           $visibleRepliesCount = $replies->whereIn('comment_id', $visibleComments->pluck('id'))->count();
                     @endphp
-
+  
                       <span>
                           @if ($visibleCommentCount > 0)
                               {{$visibleCommentCount + $visibleRepliesCount}}
@@ -47,7 +64,8 @@
                       </span>
                    </b>
                 </button>
-              </div>            
+              </div>
+              <p class="text-success fw-bold float-end">{{ $new->created_at->diffForHumans() }}</p>          
           </div>
         </div>
         <div class="d-flex justify-content-end">

@@ -9,12 +9,14 @@ use App\Http\Controllers\admin\NewsController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeDislikeController;
 use App\Http\Controllers\UiController;
 use Illuminate\Support\Facades\Route;
 
 
 // Ui
 Route::get('/', [UiController::class, 'index'])->name('index');
+
 // News
 Route::get('news', [UiController::class, 'news'])->name('news');
 // News detail
@@ -25,6 +27,9 @@ Route::get('news_search_by_id/{id?}', [UiController::class, 'newsSearchById'])->
 // News comment
 Route::post('news/comment/{newsId}', [CommentController::class, 'comment'])->name('comment')->middleware('auth');
 Route::post('news/reply/{newsId}', [CommentController::class, 'reply'])->name('reply')->middleware('auth');
+// News like dislike
+Route::post('news/like/{newsId}', [LikeDislikeController::class, 'like'])->name('like');
+Route::post('news/dislike/{newsId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
 
 // Search 
 Route::get('search_job', [UiController::class, 'search'])->name('search');
@@ -100,7 +105,4 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
     // Delete comment
     Route::post('comment/{id}/delete', [NewsController::class, 'deleteComment'])->name('deleteComment');
 });
-
-
-
 
