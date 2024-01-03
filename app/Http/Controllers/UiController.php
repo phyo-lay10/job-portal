@@ -66,6 +66,10 @@ class UiController extends Controller
 
     public function newsDetail($id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('loginForm');
+        }
+
         $new = News::find($id);
         $comments = Comment::where('news_id', $id)->where('status', 'show')->latest()->get();
         $replies = Reply::where('news_id', $id)->latest()->get();
