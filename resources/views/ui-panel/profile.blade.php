@@ -7,8 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5 mb-5">
                 <h5 class="text-center text-secondary-emphasis text-decoration-underline">User Profile</h5>
                 <div class="border pt-3 mt-5 rounded shadow">
                     <ul class="list-group list-group-flush p-3">
