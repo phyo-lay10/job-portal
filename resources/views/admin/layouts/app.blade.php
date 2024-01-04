@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="phyo lay" content="">
 
     <title>Job Portal</title>
 
@@ -97,6 +97,11 @@
                     <a class="nav-link" href="{{url('admin/news')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>News</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('admin/profile/page')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Profile</span></a>
                 </li>
             @endif
 
@@ -318,8 +323,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><b>{{Auth::user()->name}}</b></span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset('admin-assets/img/undraw_profile.svg')}}">
+                                <img class="img-profile rounded-circle object-fit-cover"
+                                    src="{{asset('storage/admin-images/'. Auth::user()->image)}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

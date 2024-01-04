@@ -34,6 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav ms-auto">
                     <a href="{{route('news')}}" class="nav-link me-2"><b>News</b></a>
+                    <a href="{{route('company')}}" class="nav-link me-2"><b>Company</b></a>
                     @if (Auth::check())
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">

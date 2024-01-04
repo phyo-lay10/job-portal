@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -100,4 +101,38 @@ class DashboardController extends Controller
 
     //     return view('admin.report.index', compact('applicants', 'workers', 'popularNews'));
     // }
+
+    public function profile()
+    {
+        $user = auth()->user();
+
+        return view('admin.profile.index', compact('user'));
+    }
+
+    public function profileUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg',
+        ]);
+        $user = User::findOrFail($id);
+
+        // $user = auth()->user();
+
+        if ($user->image) {
+            Storage::delete('public/admin-images/' . $user->image);
+        }
+
+        $image = $request->image;
+        $imageName = uniqid() . '_' . $image->getClientOriginalName();
+        $image->storeAs('public/admin-images', $imageName);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            "image" => $imageName,
+        ]);
+
+        return redirect('admin/profile/page')->with("success", "Photo has uploaded successfully!");
+    }
+
 }

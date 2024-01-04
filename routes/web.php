@@ -31,9 +31,15 @@ Route::post('news/reply/{newsId}', [CommentController::class, 'reply'])->name('r
 Route::post('news/like/{newsId}', [LikeDislikeController::class, 'like'])->name('like');
 Route::post('news/dislike/{newsId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
 
-// Search 
+// Search Job
 Route::get('search_job', [UiController::class, 'search'])->name('search');
 Route::get('search_by_id/{id?}', [UiController::class, 'searchById'])->name('searchById');
+
+// Company
+Route::get('companies', [UiController::class, 'company'])->name('company');
+
+// Search Company
+Route::get('search_company', [UiController::class, 'searchCompany'])->name('searchCompany');
 
 // Application Form
 Route::middleware('auth')->group(function () {
@@ -99,6 +105,10 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
 
     // Reports
     Route::get('reports', [DashboardController::class, 'report']);
+
+    // Profile
+    Route::get('profile/page', [DashboardController::class, 'profile'])->name('profilePage');
+    Route::post('profile/{id}', [DashboardController::class, 'profileUpdate'])->name('profileUpdate');
 
     // Show Hide comment
     Route::post('comment/{id}/show_hide', [NewsController::class, 'showHideComment']);

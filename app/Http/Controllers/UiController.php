@@ -103,6 +103,22 @@ class UiController extends Controller
 
         return view('ui-panel.news.index', compact('news', 'newsCategories'));
     }
+
+    public function company()
+    {
+        $users = User::where('role', 'employer')->withCount('jobs')->get();
+
+        return view('ui-panel.company.index', compact('users'));
+    }
+
+    public function searchCompany(Request $request)
+    {
+        $searchData = '%' . $request->search . '%';
+        $users = User::where('role', 'employer')->where('name', 'like', $searchData)->get();
+
+        return view('ui-panel.company.index', compact('users'));
+    }
+
     // public function profileUpdate(Request $request)
     // {
     //     $request->validate([
