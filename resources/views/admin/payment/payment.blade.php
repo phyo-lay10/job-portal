@@ -12,16 +12,26 @@
                 <h4 class="fw-bold">Payment Information</h4>
             </div>
             <div class="card-body">
-                <label for="" class="fw-bold">Payment Method</label>
-                <input type="text" class="form-control" placeholder="Enter your payment method" required>
+                <div class="mb-3">
+                    <label for="payment_method"><b>Payment Method</b></label>
+                    <select name="payment_method_id" id="payment_method" class="form-control @error('payment_method_id') is-invalid @enderror">
+                            <option class="fw-bold" disabled selected>Select payment methods</option>
+                            @foreach ($paymentMethods as $paymentMethod)
+                                <option value="{{$paymentMethod->id}}">{{$paymentMethod->name}}</option>
+                            @endforeach
+                    </select>
+                </div>
                 <input type="hidden" name="employerId" value="{{Auth::user()->id}}">
                 <label for="" class="fw-bold">Screenshot</label>
-                <input type="file" name="image" class="form-control" required>
+                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                @error('image')
+                    <span class="invalid-feedback">{{$message}}</span>
+                @enderror
             </div>
             <div class="card-footer">
                 <button class="btn btn-sm btn-primary">Submit</button>
             </div>
         </div>
     </form>
-@endif 
+@endif
 @endsection

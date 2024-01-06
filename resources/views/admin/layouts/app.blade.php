@@ -62,10 +62,15 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Category</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('payment-methods.index')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Payment Method</span></a>
+                </li>
             @endif
 
             <!-- Nav Item - Tables -->
-            @if(Auth::user()->role === 'employer' && Auth::user()->active === 1) 
+            @if(Auth::user()->role === 'employer' && Auth::user()->active === 1)
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin/categories')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -86,7 +91,7 @@
                 <span>Payment</span></a>
             </li>
             @endif
-          
+
             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'employer')
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin/news-categories')}}">
@@ -569,7 +574,7 @@
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <form action="{{route('logout')}}" method="post"> @csrf 
+                    <form action="{{route('logout')}}" method="post"> @csrf
                         <button class="btn btn-primary"  data-dismiss="modal">Logout</button>
                         <a class="btn btn-secondary" href="login.html">Cancelt</a>
                     </form>

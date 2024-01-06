@@ -10,15 +10,15 @@
                 <div class="mb-3">
                     {{-- <h6>{{Auth::user()->name}}</h6> --}}
                     <label for="category"><b>Category</b></label>
-                    <select name="category_id" id="category" class="form-control">
-                            <option class="fw-bold">Select Category</option>
+                    <select name="category_id" id="category"  class="form-control @error('category_id') is-invalid @enderror">
+                            <option class="fw-bold" disabled selected>Select Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                     </select>
-                    @error('title')
-                        <span class="invalid-feedback">{{$message}}</span>
-                    @enderror
+                    {{-- @error('category_id')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror --}}
                 </div>
                     <div class="mb-3">
                         <label for="title"><b>Title</b></label>
@@ -36,7 +36,7 @@
                         @enderror
                    </div>
 
-                    <div>     
+                    <div>
                         <label for="salary"><b>Salary</b></label>
                         <input type="text" name="salary" id="salary" value="{{old('salary')}}" class="form-control @error('salary') is-invalid @enderror" placeholder="Enter salary">
                         @error('salary')

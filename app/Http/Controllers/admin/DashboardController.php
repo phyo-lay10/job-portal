@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Comment;
 use App\Models\News;
 use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +22,13 @@ class DashboardController extends Controller
     }
     public function payment()
     {
-        return view("admin.payment.payment");
+        $paymentMethods = PaymentMethod::all();
+        return view("admin.payment.payment", compact("paymentMethods"));
     }
     public function paymentStore(Request $request)
     {
         $request->validate([
+            'payment_method_id' => 'required',
             "image" => "required|image|mimes:jpg,png,jpeg",
         ]);
 
@@ -35,6 +38,7 @@ class DashboardController extends Controller
 
         Payment::create([
             "employer_id" => $request->employerId,
+            "payment_method_id" => $request->payment_method_id,
             "voucher_image" => $imageName,
         ]);
 

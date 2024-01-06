@@ -25,13 +25,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="category"><b>News Category</b></label>
-                    <select name="news_category_id" id="category" class="form-control">
-                            <option>Select news category</option>
+                    <select name="news_category_id" id="category" class="form-control @error('news_category_id') is-invalid @enderror">
+                            <option class="fw-bold" disabled selected>Select news category</option>
                             @foreach ($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label><b>Image</b></label>
                     <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">

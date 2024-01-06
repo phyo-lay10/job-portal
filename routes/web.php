@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\JobController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\NewsCategoryController;
 use App\Http\Controllers\admin\NewsController;
+use App\Http\Controllers\admin\PaymentMethodController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
@@ -60,7 +61,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('register', [AuthController::class, 'registerStore'])->name('register.store');
 });
 
-// Register Update 
+// Register Update
 Route::post('register/{id}/update', [AuthController::class, 'registerUpdate'])->name('registerUpdate');
 
 
@@ -75,6 +76,9 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
     // Job
     Route::resource('jobs', JobController::class);
 
+    // Payment Method
+    Route::resource('payment-methods', PaymentMethodController::class);
+
     // Payment
     Route::get('payment', [DashboardController::class, 'payment'])->name('payment');
 
@@ -88,7 +92,7 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
     Route::get('payment/{employerId}/detail', [DashboardController::class, 'paymentDetail'])->name('paymentDetail');
     Route::post('payment/{userId}/confirm', [DashboardController::class, 'paymentConfirm'])->name('paymentConfirm');
 
-    // Applications 
+    // Applications
     Route::get('jobs/{jobId}/applications', [JobController::class, 'getApplications'])->name('jobs.applications');
 
     // Accept app
