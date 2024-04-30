@@ -215,6 +215,6 @@ class JobController extends Controller
     //         "job_id" => $request->jobId,
     //         "accept" => $application->accept,
     //         "message" => $request->message,
-    //     ]; 
+    //     ];
     // }
 }

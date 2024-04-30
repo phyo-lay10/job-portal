@@ -92,6 +92,9 @@ Route::prefix('admin')->middleware('isEmployer')->group(function () {
     Route::get('payment/{employerId}/detail', [DashboardController::class, 'paymentDetail'])->name('paymentDetail');
     Route::post('payment/{userId}/confirm', [DashboardController::class, 'paymentConfirm'])->name('paymentConfirm');
 
+    // Print payment
+    Route::get('print-pdf/{id}', [DashboardController::class, 'printPdf'])->name('print');
+
     // Applications
     Route::get('jobs/{jobId}/applications', [JobController::class, 'getApplications'])->name('jobs.applications');
 

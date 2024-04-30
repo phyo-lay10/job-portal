@@ -11,8 +11,13 @@ class Payment extends Model
 
     protected $guarded = [];
 
+    // public function user()
+    // {
+    //     return $this->hasOne(User::class, 'employer_id');
+    // }
     public function user()
     {
-        return $this->hasOne(User::class, 'employer_id');
+        return $this->hasOne(User::class, 'id', 'employer_id');
     }
+
 }

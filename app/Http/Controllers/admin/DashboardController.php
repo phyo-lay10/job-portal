@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use PDF;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -65,6 +66,20 @@ class DashboardController extends Controller
         ]);
         return back();
     }
+
+    public function printPdf($id)
+    {
+        $payment = Payment::find($id);
+        $data = [
+            "title" => "payment detail",
+            "date" => date('m/d/Y'),
+            "payment" => $payment,
+        ];
+
+        $pdf = PDF::loadView('admin.pdf', $data);
+        return $pdf->download('payment_details.pdf');
+    }
+
 
     public function report()
     {

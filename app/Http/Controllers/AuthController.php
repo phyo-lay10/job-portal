@@ -79,7 +79,7 @@ class AuthController extends Controller
         // session()->put("intendentURL", $previousURL);
 
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'exists:users,email'],
             'password' => ['required'],
         ]);
 

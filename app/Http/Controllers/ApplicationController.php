@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\category;
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ApplicationController extends Controller
 {
@@ -21,9 +23,18 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
+
+        // $existingEmail = Application::where('email', $request->email)
+        //     ->where('employee_id', '!=', Auth::user()->id)
+        //     ->exists();
+
+        // if ($existingEmail) {
+        //     return redirect()->back()->withErrors(['email' => 'The email has already been taken brother.']);
+        // }
+
         $request->validate([
             'name' => "required",
-            'email' => "required|unique:applications",
+            'email' => "required|email|unique:applications|max:100",
             'address' => "required",
             'phone' => "required|numeric",
             'salary' => "required|numeric",

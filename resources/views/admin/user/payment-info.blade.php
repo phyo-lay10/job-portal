@@ -16,9 +16,13 @@
         <p>No payment yet.</p>
         @endif
 
-        <div class="col-md-8 mt-3">
-            <a href="{{route('userList')}}" class="btn btn-sm btn-info float-end" title="back">
-                <i class="fa-solid fa-backward"></i> 
+        <div class="col-md-8 mt-3 clearfix">
+            @if (isset($payment))
+            <a href="{{ route('print', $payment->id) }}" class="float-start btn btn-sm btn-success" title="download pdf">Print</a>
+                {{-- <a href="{{route('print',$payment->id)}}" onclick="return confirm('Are u sure?')" class="float-start btn btn-sm btn-success" title="download pdf">Print</a> --}}
+            @endif
+            <a href="{{route('userList',$user->id)}}" class="btn btn-sm btn-info float-end" title="back">
+                <i class="fa-solid fa-backward"></i>
             </a>
         </div>
     </div>
